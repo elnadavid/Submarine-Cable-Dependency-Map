@@ -1,0 +1,76 @@
+{
+  "cables": [
+    {
+      "id": "sea-me-we-5",
+      "name": "SEA-ME-WE 5",
+      "length_km": 20000,
+      "owners": ["Orange", "Tata Communications", "SingTel"],
+      "ready_for_service": 2016,
+      "landing_points": ["France", "Italy", "Egypt", "Saudi Arabia", "India", "Malaysia", "Singapore"],
+      "coordinates": [
+        [2.35, 48.85], [12.49, 41.90], [29.92, 31.20],
+        [39.19, 21.49], [72.87, 19.07], [101.68, 3.14], [103.81, 1.35]
+      ]
+    },
+    {
+      "id": "aae-1",
+      "name": "AAE-1",
+      "length_km": 25000,
+      "owners": ["China Telecom", "Etisalat", "PCCW"],
+      "ready_for_service": 2017,
+      "landing_points": ["China", "Hong Kong", "Vietnam", "Malaysia", "India", "Oman", "Egypt", "France"],
+      "coordinates": [
+        [121.49, 31.22], [114.10, 22.39], [108.20, 16.05],
+        [103.81, 1.35], [80.27, 13.08], [58.59, 23.61],
+        [32.55, 29.98], [2.35, 48.85]
+      ]
+    },
+    {
+      "id": "africa-coast-to-europe",
+      "name": "Africa Coast to Europe (ACE)",
+      "length_km": 17000,
+      "owners": ["Orange", "MTN", "Togo Telecom"],
+      "ready_for_service": 2012,
+      "landing_points": ["France", "Morocco", "Senegal", "Nigeria", "South Africa"],
+      "coordinates": [
+        [2.35, 48.85], [-5.00, 34.02], [-17.44, 14.69],
+        [3.38, 6.52], [18.42, -33.92]
+      ]
+    },
+    {
+      "id": "trans-pacific-express",
+      "name": "Trans-Pacific Express (TPE)",
+      "length_km": 17700,
+      "owners": ["China Telecom", "KT Corp", "Chunghwa Telecom"],
+      "ready_for_service": 2008,
+      "landing_points": ["USA", "Japan", "South Korea", "China", "Taiwan"],
+      "coordinates": [
+        [-122.33, 47.60], [-157.82, 21.30], [135.50, 34.68],
+        [129.07, 35.17], [121.30, 25.04], [121.47, 31.23]
+      ]
+    },
+    {
+      "id": "dunant",
+      "name": "Dunant (Grace Hopper)",
+      "length_km": 6600,
+      "owners": ["Google"],
+      "ready_for_service": 2021,
+      "landing_points": ["USA", "France"],
+      "coordinates": [
+        [-71.05, 42.36], [-30.00, 40.00], [2.35, 48.85]
+      ]
+    }
+  ],
+  "landing_stations": [
+    { "country": "France",       "lat": 48.85,  "lng": 2.35,    "cables": ["sea-me-we-5", "aae-1", "africa-coast-to-europe", "dunant"] },
+    { "country": "India",        "lat": 19.07,  "lng": 72.87,   "cables": ["sea-me-we-5", "aae-1"] },
+    { "country": "Singapore",    "lat": 1.35,   "lng": 103.81,  "cables": ["sea-me-we-5", "aae-1"] },
+    { "country": "Egypt",        "lat": 31.20,  "lng": 29.92,   "cables": ["sea-me-we-5", "aae-1"] },
+    { "country": "USA",          "lat": 47.60,  "lng": -122.33, "cables": ["trans-pacific-express", "dunant"] },
+    { "country": "South Africa", "lat": -33.92, "lng": 18.42,   "cables": ["africa-coast-to-europe"] },
+    { "country": "Nigeria",      "lat": 6.52,   "lng": 3.38,    "cables": ["africa-coast-to-europe"] },
+    { "country": "China",        "lat": 31.23,  "lng": 121.47,  "cables": ["trans-pacific-express", "aae-1"] },
+    { "country": "Japan",        "lat": 34.68,  "lng": 135.50,  "cables": ["trans-pacific-express"] },
+    { "country": "Saudi Arabia", "lat": 21.49,  "lng": 39.19,   "cables": ["sea-me-we-5"] }
+  ]
+}
