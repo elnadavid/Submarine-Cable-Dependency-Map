@@ -1,0 +1,1176 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+backend/data/mock_cables.json
+backend/main.py
+backend/routers/__init__.py
+backend/routers/cables.py
+frontend/.gitignore
+frontend/AGENTS.md
+frontend/app/favicon.ico
+frontend/app/globals.css
+frontend/app/layout.tsx
+frontend/app/page.tsx
+frontend/CLAUDE.md
+frontend/components/MapStage.tsx
+frontend/components/Sidebar.tsx
+frontend/eslint.config.mjs
+frontend/lib/api.ts
+frontend/next.config.ts
+frontend/package.json
+frontend/postcss.config.mjs
+frontend/public/file.svg
+frontend/public/globe.svg
+frontend/public/next.svg
+frontend/public/vercel.svg
+frontend/public/window.svg
+frontend/README.md
+frontend/tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitignore">
+node_modules/
+venv/
+.env
+.next/
+</file>
+
+<file path="backend/data/mock_cables.json">
+{
+  "cables": [
+    {
+      "id": "sea-me-we-5",
+      "name": "SEA-ME-WE 5",
+      "length_km": 20000,
+      "owners": ["Orange", "Tata Communications", "SingTel"],
+      "ready_for_service": 2016,
+      "landing_points": ["France", "Italy", "Egypt", "Saudi Arabia", "India", "Malaysia", "Singapore"],
+      "coordinates": [
+        [2.35, 48.85], [12.49, 41.90], [29.92, 31.20],
+        [39.19, 21.49], [72.87, 19.07], [101.68, 3.14], [103.81, 1.35]
+      ]
+    },
+    {
+      "id": "aae-1",
+      "name": "AAE-1",
+      "length_km": 25000,
+      "owners": ["China Telecom", "Etisalat", "PCCW"],
+      "ready_for_service": 2017,
+      "landing_points": ["China", "Hong Kong", "Vietnam", "Malaysia", "India", "Oman", "Egypt", "France"],
+      "coordinates": [
+        [121.49, 31.22], [114.10, 22.39], [108.20, 16.05],
+        [103.81, 1.35], [80.27, 13.08], [58.59, 23.61],
+        [32.55, 29.98], [2.35, 48.85]
+      ]
+    },
+    {
+      "id": "africa-coast-to-europe",
+      "name": "Africa Coast to Europe (ACE)",
+      "length_km": 17000,
+      "owners": ["Orange", "MTN", "Togo Telecom"],
+      "ready_for_service": 2012,
+      "landing_points": ["France", "Morocco", "Senegal", "Nigeria", "South Africa"],
+      "coordinates": [
+        [2.35, 48.85], [-5.00, 34.02], [-17.44, 14.69],
+        [3.38, 6.52], [18.42, -33.92]
+      ]
+    },
+    {
+      "id": "trans-pacific-express",
+      "name": "Trans-Pacific Express (TPE)",
+      "length_km": 17700,
+      "owners": ["China Telecom", "KT Corp", "Chunghwa Telecom"],
+      "ready_for_service": 2008,
+      "landing_points": ["USA", "Japan", "South Korea", "China", "Taiwan"],
+      "coordinates": [
+        [-122.33, 47.60], [-157.82, 21.30], [135.50, 34.68],
+        [129.07, 35.17], [121.30, 25.04], [121.47, 31.23]
+      ]
+    },
+    {
+      "id": "dunant",
+      "name": "Dunant (Grace Hopper)",
+      "length_km": 6600,
+      "owners": ["Google"],
+      "ready_for_service": 2021,
+      "landing_points": ["USA", "France"],
+      "coordinates": [
+        [-71.05, 42.36], [-30.00, 40.00], [2.35, 48.85]
+      ]
+    }
+  ],
+  "landing_stations": [
+    { "country": "France",       "lat": 48.85,  "lng": 2.35,    "cables": ["sea-me-we-5", "aae-1", "africa-coast-to-europe", "dunant"] },
+    { "country": "India",        "lat": 19.07,  "lng": 72.87,   "cables": ["sea-me-we-5", "aae-1"] },
+    { "country": "Singapore",    "lat": 1.35,   "lng": 103.81,  "cables": ["sea-me-we-5", "aae-1"] },
+    { "country": "Egypt",        "lat": 31.20,  "lng": 29.92,   "cables": ["sea-me-we-5", "aae-1"] },
+    { "country": "USA",          "lat": 47.60,  "lng": -122.33, "cables": ["trans-pacific-express", "dunant"] },
+    { "country": "South Africa", "lat": -33.92, "lng": 18.42,   "cables": ["africa-coast-to-europe"] },
+    { "country": "Nigeria",      "lat": 6.52,   "lng": 3.38,    "cables": ["africa-coast-to-europe"] },
+    { "country": "China",        "lat": 31.23,  "lng": 121.47,  "cables": ["trans-pacific-express", "aae-1"] },
+    { "country": "Japan",        "lat": 34.68,  "lng": 135.50,  "cables": ["trans-pacific-express"] },
+    { "country": "Saudi Arabia", "lat": 21.49,  "lng": 39.19,   "cables": ["sea-me-we-5"] }
+  ]
+}
+</file>
+
+<file path="backend/main.py">
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from routers import cables
+
+# ─────────────────────────────────────────────
+#  THE APP
+#  This is the entry point. Think of it as the
+#  "front door" of your backend server.
+# ─────────────────────────────────────────────
+app = FastAPI(
+    title="Submarine Cable Dependency Map API",
+    description="Real Rails PoC #24 — Backend data service for submarine cable intelligence.",
+    version="1.0.0"
+)
+
+# ─────────────────────────────────────────────
+#  CORS MIDDLEWARE
+#  This is critical for full-stack development.
+#  Without this, your Next.js frontend (running
+#  on port 3000) would be BLOCKED from calling
+#  this backend (running on port 8000).
+#  CORS = Cross-Origin Resource Sharing.
+# ─────────────────────────────────────────────
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Only allow our frontend
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ─────────────────────────────────────────────
+#  REGISTER ROUTES
+#  We attach our cables router under /api
+#  So all cable endpoints become /api/cables,
+#  /api/landing-stations, etc.
+# ─────────────────────────────────────────────
+app.include_router(cables.router, prefix="/api")
+
+
+# ─────────────────────────────────────────────
+#  ROOT HEALTH CHECK
+#  A simple endpoint to confirm the server is up
+# ─────────────────────────────────────────────
+@app.get("/")
+def root():
+    return {
+        "status": "online",
+        "project": "Submarine Cable Dependency Map",
+        "poc": 24,
+        "message": "Real Rails backend is running. Visit /docs for API explorer."
+    }
+</file>
+
+<file path="backend/routers/__init__.py">
+
+</file>
+
+<file path="backend/routers/cables.py">
+import json
+import os
+from fastapi import APIRouter, HTTPException
+
+router = APIRouter()
+
+# Load mock data once when the server starts
+DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "mock_cables.json")
+
+def load_data():
+    with open(DATA_PATH, "r") as f:
+        return json.load(f)
+
+
+# ─────────────────────────────────────────────
+#  ENDPOINT 1: GET /api/cables
+#  Returns the full list of all submarine cables
+# ─────────────────────────────────────────────
+@router.get("/cables")
+def get_all_cables():
+    """
+    Returns every cable with its path coordinates, owners, and landing points.
+    The frontend uses this to draw lines on the map.
+    """
+    data = load_data()
+    return {"cables": data["cables"]}
+
+
+# ─────────────────────────────────────────────
+#  ENDPOINT 2: GET /api/cables/{cable_id}
+#  Returns details for one specific cable
+# ─────────────────────────────────────────────
+@router.get("/cables/{cable_id}")
+def get_cable_by_id(cable_id: str):
+    """
+    Returns details for a single cable.
+    Example: GET /api/cables/dunant
+    """
+    data = load_data()
+    for cable in data["cables"]:
+        if cable["id"] == cable_id:
+            return cable
+    raise HTTPException(status_code=404, detail=f"Cable '{cable_id}' not found")
+
+
+# ─────────────────────────────────────────────
+#  ENDPOINT 3: GET /api/landing-stations
+#  Returns all coastal landing point locations
+# ─────────────────────────────────────────────
+@router.get("/landing-stations")
+def get_landing_stations():
+    """
+    Returns all landing stations with their lat/lng coordinates.
+    The frontend uses this to place markers on the map.
+    """
+    data = load_data()
+    return {"landing_stations": data["landing_stations"]}
+
+
+# ─────────────────────────────────────────────
+#  ENDPOINT 4: GET /api/country/{country_name}
+#  Returns the dependency profile for one country
+# ─────────────────────────────────────────────
+@router.get("/country/{country_name}")
+def get_country_dependency(country_name: str):
+    """
+    Returns which cables serve a country and its redundancy score.
+    Redundancy score = number of independent cables. 
+    A score of 1 means the country goes offline if that cable is cut.
+    """
+    data = load_data()
+
+    # Find matching landing station
+    station = None
+    for s in data["landing_stations"]:
+        if s["country"].lower() == country_name.lower():
+            station = s
+            break
+
+    if not station:
+        raise HTTPException(status_code=404, detail=f"Country '{country_name}' not found")
+
+    # Get full details for each cable serving this country
+    cable_ids = station["cables"]
+    serving_cables = []
+    for cable in data["cables"]:
+        if cable["id"] in cable_ids:
+            serving_cables.append({
+                "id": cable["id"],
+                "name": cable["name"],
+                "owners": cable["owners"],
+                "length_km": cable["length_km"],
+                "ready_for_service": cable["ready_for_service"]
+            })
+
+    redundancy_score = len(serving_cables)
+    risk_level = "HIGH" if redundancy_score == 1 else "MEDIUM" if redundancy_score == 2 else "LOW"
+
+    return {
+        "country": station["country"],
+        "lat": station["lat"],
+        "lng": station["lng"],
+        "redundancy_score": redundancy_score,
+        "risk_level": risk_level,
+        "serving_cables": serving_cables
+    }
+</file>
+
+<file path="frontend/.gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="frontend/AGENTS.md">
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
+</file>
+
+<file path="frontend/app/globals.css">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────
+   REAL RAILS DNA — Color Variables
+   These are the mandatory colors from the
+   Master Manifesto. Never change these.
+───────────────────────────────────────── */
+:root {
+  --bg-obsidian: #030712;       /* Mandatory background */
+  --bg-surface: #0B1117;        /* Cards and panels */
+  --border-slate: #1F2937;      /* All borders */
+  --accent-cyan: #38BDF8;       /* Active states, highlights */
+  --accent-indigo: #818CF8;     /* Secondary overlays */
+  --text-primary: #F9FAFB;      /* Main text */
+  --text-muted: #6B7280;        /* Subdued text */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  height: 100vh;
+  overflow: hidden; /* No page scroll — everything fits in viewport */
+}
+
+/* Leaflet map fix — must be explicit height */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #030712 !important;
+}
+
+/* Glassmorphism card style */
+.glass-card {
+  background: rgba(11, 17, 23, 0.8);
+  border: 1px solid var(--border-slate);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+}
+
+/* Cyan glow on active elements */
+.cyan-glow {
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+  border-color: var(--accent-cyan) !important;
+}
+
+/* Scrollable sidebar content */
+.sidebar-scroll {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-slate) transparent;
+}
+</file>
+
+<file path="frontend/app/layout.tsx">
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Submarine Cable Dependency Map | Real Rails PoC #24",
+  description: "Visualizing the physical infrastructure beneath the digital world.",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
+  );
+}
+</file>
+
+<file path="frontend/app/page.tsx">
+"use client";
+
+// ─────────────────────────────────────────────────────────
+//  app/page.tsx — The Main Dashboard Page
+//
+//  This is the root of your application. It enforces the
+//  mandatory 70/30 split from the Real Rails Manifesto.
+//
+//  It also manages "state" — the currently selected cable
+//  and country — and passes them down to child components.
+//
+//  This is the core full-stack pattern:
+//  page.tsx (state) → MapStage (map) + Sidebar (intelligence)
+// ─────────────────────────────────────────────────────────
+
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import { Cable } from "@/lib/api";
+import Sidebar from "@/components/Sidebar";
+
+// We load the map with dynamic import and ssr:false
+// because Leaflet requires the browser environment.
+// Without this Next.js would crash trying to render
+// the map on the server.
+const MapStage = dynamic(() => import("@/components/MapStage"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center"
+      style={{ background: "#030712" }}>
+      <span style={{ color: "#38BDF8", fontFamily: "monospace" }}>
+        Initializing map...
+      </span>
+    </div>
+  ),
+});
+
+export default function Home() {
+  const [selectedCable, setSelectedCable] = useState<Cable | null>(null);
+  const [selectedCableId, setSelectedCableId] = useState<string | null>(null);
+
+  const handleCableClick = (cable: Cable) => {
+    setSelectedCable(cable);
+    setSelectedCableId(cable.id);
+  };
+
+  const handleCountrySelect = (country: string) => {
+    // Could pan the map to the country in future phases
+    console.log("Country selected:", country);
+  };
+
+  return (
+    <main
+      style={{
+        display: "flex",
+        width: "100vw",
+        height: "100vh",
+        background: "#030712",
+        overflow: "hidden",
+      }}
+    >
+      {/* ── MAP STAGE: 70% ── */}
+      <div style={{ width: "70%", height: "100%", position: "relative" }}>
+        {/* Top bar */}
+        <div style={{
+          position: "absolute", top: 0, left: 0, right: 0, zIndex: 1000,
+          background: "rgba(3,7,18,0.9)", borderBottom: "1px solid #1F2937",
+          padding: "10px 16px", display: "flex", alignItems: "center", gap: "12px",
+          backdropFilter: "blur(8px)"
+        }}>
+          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#38BDF8", boxShadow: "0 0 8px #38BDF8" }} />
+          <span style={{ color: "#38BDF8", fontSize: "11px", letterSpacing: "2px", fontWeight: 600 }}>
+            SUBMARINE CABLE DEPENDENCY MAP
+          </span>
+          <span style={{ color: "#1F2937", fontSize: "11px" }}>|</span>
+          <span style={{ color: "#6B7280", fontSize: "11px" }}>
+            Click a cable or landing point to inspect
+          </span>
+        </div>
+
+        <MapStage
+          onCableClick={handleCableClick}
+          onStationClick={handleCountrySelect}
+          selectedCableId={selectedCableId}
+        />
+      </div>
+
+      {/* ── INTELLIGENCE SIDEBAR: 30% ── */}
+      <div style={{ width: "30%", height: "100%" }}>
+        <Sidebar
+          selectedCable={selectedCable}
+          onCountrySelect={handleCountrySelect}
+        />
+      </div>
+    </main>
+  );
+}
+</file>
+
+<file path="frontend/CLAUDE.md">
+@AGENTS.md
+</file>
+
+<file path="frontend/components/MapStage.tsx">
+"use client";
+
+// ─────────────────────────────────────────────────────────
+//  MapStage.tsx
+//
+//  This is the 70% left panel. It renders the interactive
+//  Leaflet map with cable paths and landing point markers.
+//
+//  "use client" is required because Leaflet needs the browser
+//  (it uses window, document etc). Next.js runs some code
+//  on the server — Leaflet can't run there.
+// ─────────────────────────────────────────────────────────
+
+import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Polyline, CircleMarker, Tooltip, ZoomControl } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { Cable, LandingStation, fetchCables, fetchLandingStations } from "@/lib/api";
+
+// Each cable gets a distinct color so they're visually separate
+const CABLE_COLORS = [
+  "#38BDF8", // cyan
+  "#818CF8", // indigo
+  "#34D399", // emerald
+  "#F59E0B", // amber
+  "#F472B6", // pink
+];
+
+interface MapStageProps {
+  onCableClick: (cable: Cable) => void;
+  onStationClick: (country: string) => void;
+  selectedCableId: string | null;
+}
+
+export default function MapStage({
+  onCableClick,
+  onStationClick,
+  selectedCableId,
+}: MapStageProps) {
+  const [cables, setCables] = useState<Cable[]>([]);
+  const [stations, setStations] = useState<LandingStation[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data from our FastAPI backend when the component loads
+  useEffect(() => {
+    Promise.all([fetchCables(), fetchLandingStations()])
+      .then(([cablesData, stationsData]) => {
+        setCables(cablesData);
+        setStations(stationsData);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to load map data:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div className="relative w-full h-full">
+      {/* Loading overlay */}
+      {loading && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center"
+          style={{ background: "#030712" }}>
+          <div className="text-center">
+            <div className="text-cyan-400 text-lg font-mono mb-2">
+              Loading cable topology...
+            </div>
+            <div className="text-gray-500 text-sm">
+              Connecting to Real Rails backend
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* The Leaflet Map */}
+      <MapContainer
+        center={[20, 0]}
+        zoom={2}
+        style={{ width: "100%", height: "100%" }}
+        zoomControl={false}
+      >
+        {/* Dark map tiles from CartoDB — matches our #030712 theme */}
+        <TileLayer
+          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+        />
+
+        <ZoomControl position="bottomleft" />
+
+        {/* Draw each cable as a colored polyline */}
+        {cables.map((cable, index) => {
+          const color = CABLE_COLORS[index % CABLE_COLORS.length];
+          const isSelected = cable.id === selectedCableId;
+
+          return (
+            <Polyline
+              key={cable.id}
+              // Leaflet expects [lat, lng] but our data is [lng, lat]
+              // so we reverse each coordinate pair
+              positions={cable.coordinates.map(([lng, lat]) => [lat, lng])}
+              pathOptions={{
+                color: isSelected ? "#FFFFFF" : color,
+                weight: isSelected ? 4 : 2,
+                opacity: isSelected ? 1 : 0.7,
+              }}
+              eventHandlers={{
+                click: () => onCableClick(cable),
+              }}
+            >
+              <Tooltip sticky>
+                <div style={{ background: "#0B1117", color: "#F9FAFB", padding: "4px 8px", border: "1px solid #1F2937" }}>
+                  <strong>{cable.name}</strong><br />
+                  {cable.length_km.toLocaleString()} km<br />
+                  Owners: {cable.owners.join(", ")}
+                </div>
+              </Tooltip>
+            </Polyline>
+          );
+        })}
+
+        {/* Draw landing station markers */}
+        {stations.map((station) => (
+          <CircleMarker
+            key={station.country}
+            center={[station.lat, station.lng]}
+            radius={6}
+            pathOptions={{
+              color: "#38BDF8",
+              fillColor: "#38BDF8",
+              fillOpacity: 0.8,
+              weight: 2,
+            }}
+            eventHandlers={{
+              click: () => onStationClick(station.country),
+            }}
+          >
+            <Tooltip>
+              <div style={{ background: "#0B1117", color: "#F9FAFB", padding: "4px 8px", border: "1px solid #1F2937" }}>
+                <strong>{station.country}</strong><br />
+                {station.cables.length} cable{station.cables.length !== 1 ? "s" : ""}
+              </div>
+            </Tooltip>
+          </CircleMarker>
+        ))}
+      </MapContainer>
+    </div>
+  );
+}
+</file>
+
+<file path="frontend/components/Sidebar.tsx">
+"use client";
+
+// ─────────────────────────────────────────────────────────
+//  Sidebar.tsx — The 30% Intelligence Panel
+//
+//  This panel shows contextual intelligence based on what
+//  the user clicks on the map. It has 5 sections as defined
+//  in the Real Rails Master Manifesto:
+//  A: Title & Metric
+//  B: Why This Matters
+//  C: Who Controls the Rail
+//  D: Filters & Selection
+//  E: Download Sample Data
+// ─────────────────────────────────────────────────────────
+
+import { useState } from "react";
+import { Cable, CountryDependency, fetchCountryDependency } from "@/lib/api";
+
+interface SidebarProps {
+  selectedCable: Cable | null;
+  onCountrySelect: (country: string) => void;
+}
+
+const RISK_COLORS = {
+  LOW: "#34D399",
+  MEDIUM: "#F59E0B",
+  HIGH: "#F87171",
+};
+
+const COUNTRIES = [
+  "France", "India", "Singapore", "Egypt",
+  "USA", "South Africa", "Nigeria", "China",
+  "Japan", "Saudi Arabia"
+];
+
+export default function Sidebar({ selectedCable, onCountrySelect }: SidebarProps) {
+  const [countryData, setCountryData] = useState<CountryDependency | null>(null);
+  const [loadingCountry, setLoadingCountry] = useState(false);
+
+  const handleCountrySelect = async (country: string) => {
+    setLoadingCountry(true);
+    try {
+      const data = await fetchCountryDependency(country);
+      setCountryData(data);
+      onCountrySelect(country);
+    } catch (err) {
+      console.error("Failed to fetch country data:", err);
+    } finally {
+      setLoadingCountry(false);
+    }
+  };
+
+  const downloadSampleData = () => {
+    const sample = {
+      note: "Real Rails PoC #24 — Submarine Cable Dependency Map",
+      source: "Mock topology data based on TeleGeography references",
+      country_selected: countryData?.country || "None",
+      redundancy_score: countryData?.redundancy_score || null,
+      risk_level: countryData?.risk_level || null,
+    };
+    const blob = new Blob([JSON.stringify(sample, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "submarine_cable_sample.json";
+    a.click();
+  };
+
+  return (
+    <div
+      className="h-full flex flex-col sidebar-scroll"
+      style={{
+        background: "#0B1117",
+        borderLeft: "1px solid #1F2937",
+        padding: "16px",
+        gap: "12px",
+      }}
+    >
+      {/* ── SECTION A: Title & Metric ── */}
+      <div className="glass-card p-4">
+        <div style={{ color: "#38BDF8", fontSize: "10px", letterSpacing: "2px", marginBottom: "4px" }}>
+          REAL RAILS — POC #24
+        </div>
+        <h1 style={{ color: "#F9FAFB", fontSize: "16px", fontWeight: 700, lineHeight: 1.3 }}>
+          Submarine Cable Dependency Map
+        </h1>
+        <p style={{ color: "#6B7280", fontSize: "12px", marginTop: "6px" }}>
+          Mapping the physical infrastructure beneath the digital world.
+        </p>
+        <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
+          <div style={{ background: "#030712", border: "1px solid #1F2937", borderRadius: "6px", padding: "8px 12px", flex: 1, textAlign: "center" }}>
+            <div style={{ color: "#38BDF8", fontSize: "20px", fontWeight: 700 }}>5</div>
+            <div style={{ color: "#6B7280", fontSize: "10px" }}>Major Cables</div>
+          </div>
+          <div style={{ background: "#030712", border: "1px solid #1F2937", borderRadius: "6px", padding: "8px 12px", flex: 1, textAlign: "center" }}>
+            <div style={{ color: "#818CF8", fontSize: "20px", fontWeight: 700 }}>10</div>
+            <div style={{ color: "#6B7280", fontSize: "10px" }}>Landing Points</div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── SECTION B: Why This Matters ── */}
+      <div className="glass-card p-4">
+        <div style={{ color: "#38BDF8", fontSize: "10px", letterSpacing: "2px", marginBottom: "8px" }}>
+          WHY THIS MATTERS
+        </div>
+        <p style={{ color: "#9CA3AF", fontSize: "12px", lineHeight: 1.6 }}>
+          The internet feels wireless, but <span style={{ color: "#F9FAFB", fontWeight: 600 }}>99% of international data</span> travels through underwater fiber-optic cables.
+          A single anchor strike or earthquake can take an entire nation offline.
+          This map reveals which countries are <span style={{ color: "#F87171" }}>dangerously under-connected</span> — and which corridors need investment.
+        </p>
+      </div>
+
+      {/* ── SECTION C: Who Controls the Rail ── */}
+      <div className="glass-card p-4">
+        <div style={{ color: "#38BDF8", fontSize: "10px", letterSpacing: "2px", marginBottom: "8px" }}>
+          WHO CONTROLS THE RAIL
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+          {["Google", "Meta", "Orange", "Tata Communications", "China Telecom"].map((owner) => (
+            <div key={owner} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#38BDF8", flexShrink: 0 }} />
+              <span style={{ color: "#D1D5DB", fontSize: "12px" }}>{owner}</span>
+            </div>
+          ))}
+        </div>
+        <p style={{ color: "#6B7280", fontSize: "11px", marginTop: "8px" }}>
+          A handful of tech giants and telecoms own the billion-dollar cables that carry global commerce.
+        </p>
+      </div>
+
+      {/* ── SECTION D: Country Dependency Filter ── */}
+      <div className="glass-card p-4">
+        <div style={{ color: "#38BDF8", fontSize: "10px", letterSpacing: "2px", marginBottom: "8px" }}>
+          COUNTRY DEPENDENCY VIEW
+        </div>
+        <select
+          onChange={(e) => e.target.value && handleCountrySelect(e.target.value)}
+          style={{
+            width: "100%", background: "#030712", color: "#F9FAFB",
+            border: "1px solid #1F2937", borderRadius: "6px",
+            padding: "8px", fontSize: "12px", cursor: "pointer"
+          }}
+        >
+          <option value="">Select a country...</option>
+          {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
+        </select>
+
+        {/* Country result */}
+        {loadingCountry && (
+          <p style={{ color: "#38BDF8", fontSize: "12px", marginTop: "8px" }}>Loading...</p>
+        )}
+        {countryData && !loadingCountry && (
+          <div style={{ marginTop: "12px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+              <span style={{ color: "#F9FAFB", fontWeight: 600 }}>{countryData.country}</span>
+              <span style={{
+                background: RISK_COLORS[countryData.risk_level],
+                color: "#000", fontSize: "10px", fontWeight: 700,
+                padding: "2px 8px", borderRadius: "4px"
+              }}>
+                {countryData.risk_level} RISK
+              </span>
+            </div>
+            <div style={{ color: "#6B7280", fontSize: "11px", marginBottom: "8px" }}>
+              Redundancy Score: <span style={{ color: "#38BDF8", fontWeight: 700 }}>{countryData.redundancy_score}</span> cable{countryData.redundancy_score !== 1 ? "s" : ""}
+            </div>
+            {countryData.serving_cables.map((cable) => (
+              <div key={cable.id} style={{
+                background: "#030712", border: "1px solid #1F2937",
+                borderRadius: "6px", padding: "8px", marginBottom: "6px"
+              }}>
+                <div style={{ color: "#F9FAFB", fontSize: "12px", fontWeight: 600 }}>{cable.name}</div>
+                <div style={{ color: "#6B7280", fontSize: "11px" }}>{cable.length_km.toLocaleString()} km · {cable.ready_for_service}</div>
+                <div style={{ color: "#818CF8", fontSize: "11px" }}>{cable.owners.join(", ")}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Selected cable info */}
+        {selectedCable && (
+          <div style={{ marginTop: "12px", borderTop: "1px solid #1F2937", paddingTop: "12px" }}>
+            <div style={{ color: "#38BDF8", fontSize: "10px", letterSpacing: "2px", marginBottom: "6px" }}>
+              SELECTED CABLE
+            </div>
+            <div style={{ color: "#F9FAFB", fontSize: "13px", fontWeight: 600 }}>{selectedCable.name}</div>
+            <div style={{ color: "#6B7280", fontSize: "11px", marginTop: "4px" }}>{selectedCable.length_km.toLocaleString()} km</div>
+            <div style={{ color: "#818CF8", fontSize: "11px" }}>{selectedCable.owners.join(", ")}</div>
+            <div style={{ color: "#6B7280", fontSize: "11px" }}>Since {selectedCable.ready_for_service}</div>
+          </div>
+        )}
+      </div>
+
+      {/* ── SECTION E: Download ── */}
+      <button
+        onClick={downloadSampleData}
+        style={{
+          background: "transparent", border: "1px solid #38BDF8",
+          color: "#38BDF8", borderRadius: "6px", padding: "10px",
+          fontSize: "12px", cursor: "pointer", fontWeight: 600,
+          letterSpacing: "1px"
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(56,189,248,0.1)")}
+        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+      >
+        ↓ DOWNLOAD SAMPLE DATA
+      </button>
+    </div>
+  );
+}
+</file>
+
+<file path="frontend/eslint.config.mjs">
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+</file>
+
+<file path="frontend/lib/api.ts">
+// ─────────────────────────────────────────────────────────
+//  lib/api.ts — The Data Bridge
+//
+//  This file is the ONLY place in the frontend that knows
+//  about the backend URL. All components import from here.
+//
+//  This is a key full-stack concept: if the backend URL
+//  ever changes, you update it in ONE place, not everywhere.
+// ─────────────────────────────────────────────────────────
+
+const API_BASE = "http://localhost:8000/api";
+
+// TypeScript types — these must match what the backend returns
+export interface Cable {
+  id: string;
+  name: string;
+  length_km: number;
+  owners: string[];
+  ready_for_service: number;
+  landing_points: string[];
+  coordinates: [number, number][];
+}
+
+export interface LandingStation {
+  country: string;
+  lat: number;
+  lng: number;
+  cables: string[];
+}
+
+export interface CountryDependency {
+  country: string;
+  lat: number;
+  lng: number;
+  redundancy_score: number;
+  risk_level: "LOW" | "MEDIUM" | "HIGH";
+  serving_cables: {
+    id: string;
+    name: string;
+    owners: string[];
+    length_km: number;
+    ready_for_service: number;
+  }[];
+}
+
+// ── Fetch all cables ──────────────────────────────────────
+export async function fetchCables(): Promise<Cable[]> {
+  const res = await fetch(`${API_BASE}/cables`);
+  if (!res.ok) throw new Error("Failed to fetch cables");
+  const data = await res.json();
+  return data.cables;
+}
+
+// ── Fetch all landing stations ────────────────────────────
+export async function fetchLandingStations(): Promise<LandingStation[]> {
+  const res = await fetch(`${API_BASE}/landing-stations`);
+  if (!res.ok) throw new Error("Failed to fetch landing stations");
+  const data = await res.json();
+  return data.landing_stations;
+}
+
+// ── Fetch one country's dependency profile ────────────────
+export async function fetchCountryDependency(
+  country: string
+): Promise<CountryDependency> {
+  const res = await fetch(`${API_BASE}/country/${country}`);
+  if (!res.ok) throw new Error(`Country '${country}' not found`);
+  return res.json();
+}
+</file>
+
+<file path="frontend/next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+</file>
+
+<file path="frontend/package.json">
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@types/leaflet": "^1.9.21",
+    "leaflet": "^1.9.4",
+    "next": "16.2.2",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-leaflet": "^5.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="frontend/postcss.config.mjs">
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+</file>
+
+<file path="frontend/public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="frontend/public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="frontend/public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="frontend/public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="frontend/public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="frontend/README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="frontend/tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+</file>
+
+</files>
