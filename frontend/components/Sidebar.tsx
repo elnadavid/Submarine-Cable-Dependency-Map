@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Cable, fetchCountryDependency } from "@/lib/api";
 
 interface SidebarProps {
   selectedCable: Cable | null;
   onCountrySelect: (country: string) => void;
+  selectedCountry?: string | null;
 }
 
 // Updated to match new backend response shape
@@ -52,10 +53,16 @@ const COUNTRIES = [
   "Japan", "Saudi Arabia"
 ];
 
-export default function Sidebar({ selectedCable, onCountrySelect }: SidebarProps) {
+export default function Sidebar({ selectedCable, onCountrySelect, selectedCountry }: SidebarProps) {
   const [countryData, setCountryData] = useState<CountryDependency | null>(null);
   const [meta, setMeta] = useState<ApiMeta | null>(null);
   const [loadingCountry, setLoadingCountry] = useState(false);
+
+  useEffect(() => {
+    if (selectedCountry) {
+      handleCountrySelect(selectedCountry);
+    }
+  }, [selectedCountry]);
 
   const handleCountrySelect = async (country: string) => {
     if (!country) return;

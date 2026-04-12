@@ -37,6 +37,7 @@ const MapStage = dynamic(() => import("@/components/MapStage"), {
 export default function Home() {
   const [selectedCable, setSelectedCable] = useState<Cable | null>(null);
   const [selectedCableId, setSelectedCableId] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
 
   const handleCableClick = (cable: Cable) => {
     setSelectedCable(cable);
@@ -44,8 +45,8 @@ export default function Home() {
   };
 
   const handleCountrySelect = (country: string) => {
-    // Could pan the map to the country in future phases
     console.log("Country selected:", country);
+    setSelectedCountry(country);
   };
 
   return (
@@ -89,6 +90,7 @@ export default function Home() {
         <Sidebar
           selectedCable={selectedCable}
           onCountrySelect={handleCountrySelect}
+          selectedCountry={selectedCountry}
         />
       </div>
     </main>
