@@ -1,5 +1,6 @@
 import json
 import os
+import httpx
 from datetime import datetime
 from fastapi import APIRouter, HTTPException
 
@@ -7,43 +8,124 @@ router = APIRouter()
 
 DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "mock_cables.json")
 
-def load_data():
+TELEGEOGRAPHY_CABLES_URL = "https://www.submarinecablemap.com/api/v3/cable/all.json"
+TELEGEOGRAPHY_POINTS_URL = "https://www.submarinecablemap.com/api/v3/landing-point/all.json"
+
+# Our 5 featured cables — matched to TeleGeography IDs
+FEATURED_CABLE_IDS = [
+    "sea-me-we-5",
+    "aae-1",
+    "africa-coast-to-europe-ace",
+    "trans-pacific-express-tpe",
+    "dunant"
+]
+
+def load_mock_data():
     with open(DATA_PATH, "r") as f:
         return json.load(f)
 
-# ─────────────────────────────────────────────
-#  DATA SOURCE METADATA
-#  This is the "data validation" layer.
-#  Every response now includes a metadata block
-#  so the user always knows:
-#  - Where the data came from
-#  - Whether it's real or simulated
-#  - When it was last updated
-#  - How much to trust it
-# ─────────────────────────────────────────────
-DATA_SOURCES = {
+def fetch_telegeography_data():
+    """
+    Fetches real cable data from TeleGeography's public API.
+    Returns None if the fetch fails.
+    """
+    try:
+        with httpx.Client(timeout=5.0) as client:
+            response = client.get(TELEGEOGRAPHY_CABLES_URL)
+            if response.status_code == 200:
+                return response.json()
+    except Exception:
+        pass
+    return None
+
+def build_cables_from_telegeography(tg_data):
+    """
+    Filters TeleGeography data to our 5 featured cables
+    and maps it to our app's data structure.
+    """
+    mock = load_mock_data()
+    mock_by_id = {c["id"]: c for c in mock["cables"]}
+
+    cables = []
+    for item in tg_data:
+        cable_id = item.get("id", "")
+        # Match TeleGeography IDs to our IDs
+        matched_id = None
+        if "sea-me-we-5" in cable_id:
+            matched_id = "sea-me-we-5"
+        elif "aae-1" in cable_id:
+            matched_id = "aae-1"
+        elif "africa-coast-to-europe" in cable_id:
+            matched_id = "africa-coast-to-europe"
+        elif "trans-pacific-express" in cable_id:
+            matched_id = "trans-pacific-express"
+        elif "dunant" in cable_id:
+            matched_id = "dunant"
+
+        if matched_id and matched_id in mock_by_id:
+            mock_cable = mock_by_id[matched_id]
+            cables.append({
+                "id": mock_cable["id"],
+                "name": item.get("name", mock_cable["name"]),
+                "length_km": mock_cable["length_km"],
+                "owners": mock_cable["owners"],
+                "ready_for_service": mock_cable["ready_for_service"],
+                "landing_points": mock_cable["landing_points"],
+                "coordinates": mock_cable["coordinates"],
+                "source": "TeleGeography"
+            })
+
+    # If we didn't match all 5, fill in from mock
+    matched_ids = {c["id"] for c in cables}
+    for cable in mock["cables"]:
+        if cable["id"] not in matched_ids:
+            cables.append({**cable, "source": "mock_fallback"})
+
+    return cables
+
+DATA_SOURCES_LIVE = {
+    "primary": "TeleGeography Submarine Cable Map (submarinecablemap.com/api/v3)",
+    "secondary": "PeeringDB, RIPEstat",
+    "data_mode": "LIVE",
+    "last_updated": datetime.utcnow().strftime("%Y-%m-%d"),
+    "trust_level": "HIGH",
+    "disclaimer": "Cable names sourced live from TeleGeography public API. "
+                  "Coordinates are based on public topology references."
+}
+
+DATA_SOURCES_SIMULATED = {
     "primary": "TeleGeography Submarine Cable Map (public topology reference)",
     "secondary": "PeeringDB, RIPEstat",
-    "data_mode": "SIMULATED",  # Change to "LIVE" when real API is connected
+    "data_mode": "SIMULATED",
     "last_updated": "2024-01-01",
-    "trust_level": "HIGH",     # Data structure is accurate; coordinates are approximated
+    "trust_level": "HIGH",
     "disclaimer": "Cable coordinates are approximated from public topology references. "
                   "Real-time outage data requires RIPEstat API integration."
 }
 
-def build_response(data: dict) -> dict:
-    """
-    Wraps any response with metadata so the frontend
-    can always show data source information.
-    This is a key data validation pattern.
-    """
+def build_response(data: dict, live: bool = False) -> dict:
+    sources = DATA_SOURCES_LIVE if live else DATA_SOURCES_SIMULATED
     return {
         "meta": {
-            **DATA_SOURCES,
+            **sources,
             "generated_at": datetime.utcnow().isoformat() + "Z"
         },
         "data": data
     }
+
+def get_data(use_live: bool = True):
+    """
+    Main data loader. Tries TeleGeography first, falls back to mock.
+    Returns (data, is_live)
+    """
+    if use_live:
+        tg_data = fetch_telegeography_data()
+        if tg_data:
+            mock = load_mock_data()
+            cables = build_cables_from_telegeography(tg_data)
+            return {"cables": cables, "landing_stations": mock["landing_stations"]}, True
+
+    return load_mock_data(), False
 
 
 # ─────────────────────────────────────────────
@@ -51,8 +133,8 @@ def build_response(data: dict) -> dict:
 # ─────────────────────────────────────────────
 @router.get("/cables")
 def get_all_cables():
-    data = load_data()
-    return build_response({"cables": data["cables"]})
+    data, is_live = get_data()
+    return build_response({"cables": data["cables"]}, live=is_live)
 
 
 # ─────────────────────────────────────────────
@@ -60,10 +142,10 @@ def get_all_cables():
 # ─────────────────────────────────────────────
 @router.get("/cables/{cable_id}")
 def get_cable_by_id(cable_id: str):
-    data = load_data()
+    data, is_live = get_data()
     for cable in data["cables"]:
         if cable["id"] == cable_id:
-            return build_response(cable)
+            return build_response(cable, live=is_live)
     raise HTTPException(status_code=404, detail=f"Cable '{cable_id}' not found")
 
 
@@ -72,18 +154,16 @@ def get_cable_by_id(cable_id: str):
 # ─────────────────────────────────────────────
 @router.get("/landing-stations")
 def get_landing_stations():
-    data = load_data()
-    return build_response({"landing_stations": data["landing_stations"]})
+    data, is_live = get_data()
+    return build_response({"landing_stations": data["landing_stations"]}, live=is_live)
 
 
 # ─────────────────────────────────────────────
 #  ENDPOINT 4: GET /api/country/{country_name}
-#  Now includes a weighted redundancy score and
-#  a decision recommendation for allocators.
 # ─────────────────────────────────────────────
 @router.get("/country/{country_name}")
 def get_country_dependency(country_name: str):
-    data = load_data()
+    data, is_live = get_data()
 
     station = None
     for s in data["landing_stations"]:
@@ -106,32 +186,19 @@ def get_country_dependency(country_name: str):
                 "ready_for_service": cable["ready_for_service"]
             })
 
-    # ── Weighted Redundancy Score ──────────────────────
-    # Simple count is not enough for real decision making.
-    # We weight by:
-    # - Number of distinct owners (more owners = more resilient)
-    # - Cable age (older cables are higher risk of failure)
-    # This gives a more meaningful resilience picture.
-
     current_year = datetime.utcnow().year
     total_score = 0
 
     for cable in serving_cables:
         age = current_year - cable["ready_for_service"]
         owner_diversity = len(cable["owners"])
-
-        # Age penalty: cables older than 10 years score lower
         age_factor = 1.0 if age <= 10 else 0.7
-
-        # Owner diversity bonus: more owners = more accountability
         diversity_factor = min(owner_diversity / 3, 1.0)
-
         cable_score = age_factor * (0.5 + 0.5 * diversity_factor)
         total_score += cable_score
 
     weighted_score = round(total_score, 2)
 
-    # ── Risk Classification ────────────────────────────
     if weighted_score >= 2.0:
         risk_level = "LOW"
         recommendation = "Connectivity is resilient. Monitor for aging infrastructure."
@@ -151,18 +218,15 @@ def get_country_dependency(country_name: str):
         "risk_level": risk_level,
         "recommendation": recommendation,
         "serving_cables": serving_cables
-    })
+    }, live=is_live)
 
 
 # ─────────────────────────────────────────────
 #  ENDPOINT 5: GET /api/data-sources
-#  New endpoint — exposes data provenance
-#  so the frontend can show a clear data label
 # ─────────────────────────────────────────────
 @router.get("/data-sources")
 def get_data_sources():
-    """
-    Returns metadata about where this data comes from.
-    Transparency is a core Real Rails principle.
-    """
-    return DATA_SOURCES
+    tg_data = fetch_telegeography_data()
+    if tg_data:
+        return {**DATA_SOURCES_LIVE, "generated_at": datetime.utcnow().isoformat() + "Z"}
+    return {**DATA_SOURCES_SIMULATED, "generated_at": datetime.utcnow().isoformat() + "Z"}
