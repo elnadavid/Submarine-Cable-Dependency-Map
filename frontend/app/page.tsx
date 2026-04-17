@@ -82,6 +82,7 @@ export default function Home() {
           onCableClick={handleCableClick}
           onStationClick={handleCountrySelect}
           selectedCableId={selectedCableId}
+          selectedCountry={selectedCountry}   // ✅ ADD THIS LINE
         />
       </div>
 

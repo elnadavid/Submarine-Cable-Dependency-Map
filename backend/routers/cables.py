@@ -40,46 +40,17 @@ def fetch_telegeography_data():
 
 def build_cables_from_telegeography(tg_data):
     """
-    Filters TeleGeography data to our 5 featured cables
-    and maps it to our app's data structure.
+    Instead of filtering to 5 cables,
+    just return ALL mock cables (expanded dataset)
     """
     mock = load_mock_data()
-    mock_by_id = {c["id"]: c for c in mock["cables"]}
-
     cables = []
-    for item in tg_data:
-        cable_id = item.get("id", "")
-        # Match TeleGeography IDs to our IDs
-        matched_id = None
-        if "sea-me-we-5" in cable_id:
-            matched_id = "sea-me-we-5"
-        elif "aae-1" in cable_id:
-            matched_id = "aae-1"
-        elif "africa-coast-to-europe" in cable_id:
-            matched_id = "africa-coast-to-europe"
-        elif "trans-pacific-express" in cable_id:
-            matched_id = "trans-pacific-express"
-        elif "dunant" in cable_id:
-            matched_id = "dunant"
 
-        if matched_id and matched_id in mock_by_id:
-            mock_cable = mock_by_id[matched_id]
-            cables.append({
-                "id": mock_cable["id"],
-                "name": item.get("name", mock_cable["name"]),
-                "length_km": mock_cable["length_km"],
-                "owners": mock_cable["owners"],
-                "ready_for_service": mock_cable["ready_for_service"],
-                "landing_points": mock_cable["landing_points"],
-                "coordinates": mock_cable["coordinates"],
-                "source": "TeleGeography"
-            })
-
-    # If we didn't match all 5, fill in from mock
-    matched_ids = {c["id"] for c in cables}
     for cable in mock["cables"]:
-        if cable["id"] not in matched_ids:
-            cables.append({**cable, "source": "mock_fallback"})
+        cables.append({
+            **cable,
+            "source": "mock_expanded"
+        })
 
     return cables
 

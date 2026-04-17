@@ -8,8 +8,10 @@
       "ready_for_service": 2016,
       "landing_points": ["France", "Italy", "Egypt", "Saudi Arabia", "India", "Malaysia", "Singapore"],
       "coordinates": [
-        [2.35, 48.85], [12.49, 41.90], [29.92, 31.20],
-        [39.19, 21.49], [72.87, 19.07], [101.68, 3.14], [103.81, 1.35]
+        [2.35, 48.85], [12.49, 41.90], [19.37, 37.12],
+        [29.92, 31.20], [39.19, 21.49], [55.33, 25.28],
+        [72.87, 19.07], [80.28, 13.08], [100.34, 5.41],
+        [103.81, 1.35]
       ]
     },
     {
@@ -22,7 +24,7 @@
       "coordinates": [
         [121.49, 31.22], [114.10, 22.39], [108.20, 16.05],
         [103.81, 1.35], [80.27, 13.08], [58.59, 23.61],
-        [32.55, 29.98], [2.35, 48.85]
+        [50.61, 26.22], [32.55, 29.98], [2.35, 48.85]
       ]
     },
     {
@@ -59,18 +61,153 @@
       "coordinates": [
         [-71.05, 42.36], [-30.00, 40.00], [2.35, 48.85]
       ]
+    },
+    {
+      "id": "safe",
+      "name": "SAFE",
+      "length_km": 13500,
+      "owners": ["Telkom SA", "TATA Communications", "MTN"],
+      "ready_for_service": 2002,
+      "landing_points": ["South Africa", "India", "Malaysia", "Thailand"],
+      "coordinates": [
+        [18.42, -33.92], [40.35, -20.15], [57.50, -20.16],
+        [72.87, 19.07], [100.52, 13.75], [101.68, 3.14]
+      ]
+    },
+    {
+      "id": "eassy",
+      "name": "EASSy",
+      "length_km": 10000,
+      "owners": ["Vodacom", "Etisalat", "MTN"],
+      "ready_for_service": 2010,
+      "landing_points": ["South Africa", "Mozambique", "Kenya", "Djibouti"],
+      "coordinates": [
+        [18.42, -33.92], [35.30, -23.88], [39.66, -4.04],
+        [43.14, 11.58]
+      ]
+    },
+    {
+      "id": "imewe",
+      "name": "IMEWE",
+      "length_km": 12091,
+      "owners": ["Orange", "STC", "Etisalat"],
+      "ready_for_service": 2010,
+      "landing_points": ["France", "Italy", "Saudi Arabia", "India"],
+      "coordinates": [
+        [2.35, 48.85], [12.49, 41.90], [29.92, 31.20],
+        [39.19, 21.49], [72.87, 19.07]
+      ]
+    },
+    {
+      "id": "apg",
+      "name": "APG",
+      "length_km": 10400,
+      "owners": ["China Telecom", "KT Corp", "NTT"],
+      "ready_for_service": 2016,
+      "landing_points": ["China", "Japan", "South Korea", "Taiwan", "Malaysia", "Singapore"],
+      "coordinates": [
+        [121.47, 31.23], [121.30, 25.04], [129.07, 35.17],
+        [135.50, 34.68], [103.81, 1.35], [101.68, 3.14]
+      ]
+    },
+    {
+      "id": "jupiter",
+      "name": "Jupiter",
+      "length_km": 14000,
+      "owners": ["Google", "PLDT", "SoftBank"],
+      "ready_for_service": 2020,
+      "landing_points": ["USA", "Japan", "Philippines"],
+      "coordinates": [
+        [-122.33, 47.60], [-157.82, 21.30], [135.50, 34.68],
+        [120.98, 14.60]
+      ]
+    },
+    {
+      "id": "sea-me-we-6",
+      "name": "SEA-ME-WE 6",
+      "length_km": 21000,
+      "owners": ["Orange", "Telecom Egypt"],
+      "ready_for_service": 2022,
+      "landing_points": ["France", "Egypt", "India", "Singapore"],
+      "coordinates": [
+        [2.35, 48.85],
+        [29.92, 31.20],
+        [72.87, 19.07],
+        [103.81, 1.35]
+      ]
+    },
+    {
+      "id": "blue-raman",
+      "name": "Blue-Raman",
+      "length_km": 8000,
+      "owners": ["Google"],
+      "ready_for_service": 2024,
+      "landing_points": ["Italy", "Israel", "India"],
+      "coordinates": [
+        [12.49, 41.90],
+        [34.78, 32.08],
+        [72.87, 19.07]
+      ]
+    },
+    {
+      "id": "equiano",
+      "name": "Equiano",
+      "length_km": 15000,
+      "owners": ["Google"],
+      "ready_for_service": 2023,
+      "landing_points": ["Portugal", "Nigeria", "South Africa"],
+      "coordinates": [
+        [-9.14, 38.72],
+        [3.38, 6.52],
+        [18.42, -33.92]
+      ]
+    },
+    {
+      "id": "marea",
+      "name": "Marea",
+      "length_km": 6600,
+      "owners": ["Meta", "Microsoft"],
+      "ready_for_service": 2018,
+      "landing_points": ["USA", "Spain"],
+      "coordinates": [
+        [-74.00, 40.71],
+        [-3.70, 40.41]
+      ]
+    },
+    {
+      "id": "2africa",
+      "name": "2Africa",
+      "length_km": 45000,
+      "owners": ["Meta"],
+      "ready_for_service": 2024,
+      "landing_points": ["Portugal", "Egypt", "Kenya", "South Africa"],
+      "coordinates": [
+        [-9.14, 38.72],
+        [29.92, 31.20],
+        [39.66, -4.04],
+        [18.42, -33.92]
+      ]
     }
   ],
+
   "landing_stations": [
-    { "country": "France",       "lat": 48.85,  "lng": 2.35,    "cables": ["sea-me-we-5", "aae-1", "africa-coast-to-europe", "dunant"] },
-    { "country": "India",        "lat": 19.07,  "lng": 72.87,   "cables": ["sea-me-we-5", "aae-1"] },
-    { "country": "Singapore",    "lat": 1.35,   "lng": 103.81,  "cables": ["sea-me-we-5", "aae-1"] },
-    { "country": "Egypt",        "lat": 31.20,  "lng": 29.92,   "cables": ["sea-me-we-5", "aae-1"] },
-    { "country": "USA",          "lat": 47.60,  "lng": -122.33, "cables": ["trans-pacific-express", "dunant"] },
-    { "country": "South Africa", "lat": -33.92, "lng": 18.42,   "cables": ["africa-coast-to-europe"] },
-    { "country": "Nigeria",      "lat": 6.52,   "lng": 3.38,    "cables": ["africa-coast-to-europe"] },
-    { "country": "China",        "lat": 31.23,  "lng": 121.47,  "cables": ["trans-pacific-express", "aae-1"] },
-    { "country": "Japan",        "lat": 34.68,  "lng": 135.50,  "cables": ["trans-pacific-express"] },
-    { "country": "Saudi Arabia", "lat": 21.49,  "lng": 39.19,   "cables": ["sea-me-we-5"] }
+    { "country": "France", "lat": 48.85, "lng": 2.35, "cables": ["sea-me-we-5","aae-1","africa-coast-to-europe","dunant","imewe","sea-me-we-6"] },
+    { "country": "India", "lat": 19.07, "lng": 72.87, "cables": ["sea-me-we-5","aae-1","safe","imewe","sea-me-we-6","blue-raman"] },
+    { "country": "Singapore", "lat": 1.35, "lng": 103.81, "cables": ["sea-me-we-5","aae-1","apg","sea-me-we-6"] },
+    { "country": "Egypt", "lat": 31.20, "lng": 29.92, "cables": ["sea-me-we-5","aae-1","imewe","sea-me-we-6","2africa"] },
+    { "country": "USA", "lat": 47.60, "lng": -122.33, "cables": ["trans-pacific-express","dunant","jupiter","marea"] },
+    { "country": "South Africa", "lat": -33.92, "lng": 18.42, "cables": ["africa-coast-to-europe","safe","eassy","equiano","2africa"] },
+    { "country": "Nigeria", "lat": 6.52, "lng": 3.38, "cables": ["africa-coast-to-europe","equiano"] },
+    { "country": "China", "lat": 31.23, "lng": 121.47, "cables": ["trans-pacific-express","aae-1","apg"] },
+    { "country": "Japan", "lat": 34.68, "lng": 135.50, "cables": ["trans-pacific-express","apg","jupiter"] },
+    { "country": "Saudi Arabia", "lat": 21.49, "lng": 39.19, "cables": ["sea-me-we-5","imewe"] },
+    { "country": "Malaysia", "lat": 3.14, "lng": 101.68, "cables": ["sea-me-we-5","safe","apg"] },
+    { "country": "Kenya", "lat": -4.04, "lng": 39.66, "cables": ["eassy","2africa"] },
+    { "country": "Djibouti", "lat": 11.58, "lng": 43.14, "cables": ["eassy"] },
+    { "country": "Mozambique", "lat": -23.88, "lng": 35.30, "cables": ["eassy"] },
+    { "country": "Thailand", "lat": 13.75, "lng": 100.52, "cables": ["safe"] },
+    { "country": "South Korea", "lat": 35.17, "lng": 129.07, "cables": ["trans-pacific-express","apg"] },
+    { "country": "Philippines", "lat": 14.60, "lng": 120.98, "cables": ["jupiter"] },
+    { "country": "Taiwan", "lat": 25.04, "lng": 121.30, "cables": ["trans-pacific-express","apg"] }
   ]
 }

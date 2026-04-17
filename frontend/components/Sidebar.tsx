@@ -54,6 +54,7 @@ const COUNTRIES = [
 ];
 
 export default function Sidebar({ selectedCable, onCountrySelect, selectedCountry }: SidebarProps) {
+  const [cables, setCables] = useState<Cable[]>([]);
   const [countryData, setCountryData] = useState<CountryDependency | null>(null);
   const [meta, setMeta] = useState<ApiMeta | null>(null);
   const [loadingCountry, setLoadingCountry] = useState(false);
@@ -63,6 +64,20 @@ export default function Sidebar({ selectedCable, onCountrySelect, selectedCountr
       handleCountrySelect(selectedCountry);
     }
   }, [selectedCountry]);
+
+  useEffect(() => {
+  const fetchCables = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/api/cables");
+      const json = await res.json();
+      setCables(json.data.cables);
+    } catch (err) {
+      console.error("Failed to fetch cables:", err);
+    }
+  };
+
+  fetchCables();
+}, []);
 
   const handleCountrySelect = async (country: string) => {
     if (!country) return;
@@ -122,11 +137,11 @@ export default function Sidebar({ selectedCable, onCountrySelect, selectedCountr
         </p>
         <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
           <div style={{ background: "#030712", border: "1px solid #1F2937", borderRadius: "6px", padding: "8px 12px", flex: 1, textAlign: "center" }}>
-            <div style={{ color: "#38BDF8", fontSize: "20px", fontWeight: 700 }}>5</div>
+          <div style={{ color: "#38BDF8", fontSize: "20px", fontWeight: 700 }}>{cables.length}</div>
             <div style={{ color: "#6B7280", fontSize: "10px" }}>Major Cables</div>
           </div>
           <div style={{ background: "#030712", border: "1px solid #1F2937", borderRadius: "6px", padding: "8px 12px", flex: 1, textAlign: "center" }}>
-            <div style={{ color: "#818CF8", fontSize: "20px", fontWeight: 700 }}>10</div>
+            <div style={{ color: "#818CF8", fontSize: "20px", fontWeight: 700 }}>18</div>
             <div style={{ color: "#6B7280", fontSize: "10px" }}>Landing Points</div>
           </div>
         </div>
@@ -165,19 +180,9 @@ export default function Sidebar({ selectedCable, onCountrySelect, selectedCountr
       {/* ── SECTION D: Country Dependency Filter ── */}
       <div className="glass-card p-4">
         <div style={{ color: "#38BDF8", fontSize: "10px", letterSpacing: "2px", marginBottom: "8px" }}>
-          COUNTRY DEPENDENCY VIEW
+          COUNTRY INSIGHTS
         </div>
-        <select
-          onChange={(e) => handleCountrySelect(e.target.value)}
-          style={{
-            width: "100%", background: "#030712", color: "#F9FAFB",
-            border: "1px solid #1F2937", borderRadius: "6px",
-            padding: "8px", fontSize: "12px", cursor: "pointer"
-          }}
-        >
-          <option value="">Select a country...</option>
-          {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
-        </select>
+        
 
         {loadingCountry && (
           <p style={{ color: "#38BDF8", fontSize: "12px", marginTop: "8px" }}>Loading...</p>

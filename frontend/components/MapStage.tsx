@@ -29,12 +29,14 @@ interface MapStageProps {
   onCableClick: (cable: Cable) => void;
   onStationClick: (country: string) => void;
   selectedCableId: string | null;
+  selectedCountry: string | null;   // ✅ ADD THIS LINE
 }
 
 export default function MapStage({
   onCableClick,
   onStationClick,
   selectedCableId,
+  selectedCountry,   // ✅ ADD THIS
 }: MapStageProps) {
   const [cables, setCables] = useState<Cable[]>([]);
   const [stations, setStations] = useState<LandingStation[]>([]);
@@ -70,6 +72,49 @@ export default function MapStage({
           </div>
         </div>
       )}
+      <div
+        style={{
+          position: "absolute",
+          top: "80px",
+          left: "16px",
+          zIndex: 1000,
+          background: "#0B1117",
+          border: "1px solid #1F2937",
+          borderRadius: "8px",
+          padding: "12px",
+          width: "220px",
+        }}
+      >
+      <div style={{ color: "#38BDF8", fontSize: "11px", marginBottom: "8px" }}>
+      FILTERS
+      </div>
+
+      <div style={{ color: "#6B7280", fontSize: "10px", marginBottom: "4px" }}>
+       SELECT COUNTRY
+      </div>
+
+      <select
+        value={selectedCountry || ""}
+        onChange={(e) => onStationClick(e.target.value)}
+        style={{
+          width: "100%",
+          background: "#030712",
+         color: "#F9FAFB",
+          border: "1px solid #1F2937",
+          borderRadius: "6px",
+          padding: "8px",
+          fontSize: "12px",
+          cursor: "pointer"
+         }}
+      >
+        <option value="">Select a country...</option>
+        {stations.map((s) => (
+          <option key={s.country} value={s.country}>
+            {s.country}
+          </option>
+        ))}
+      </select>
+      </div>
 
       {/* The Leaflet Map */}
       <MapContainer
