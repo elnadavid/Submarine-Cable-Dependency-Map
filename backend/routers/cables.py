@@ -99,9 +99,8 @@ def build_cables_from_telegeography(tg_data):
 
         if matched_id and matched_id in mock_by_id:
             mock_cable = mock_by_id[matched_id]
-            # Use real coordinates if available, fall back to mock
-            real_coords = geo_by_id.get(cable_id, geo_by_id.get(matched_id, None))
-            coordinates = real_coords if real_coords else mock_cable["coordinates"]
+            
+            coordinates = mock_cable["coordinates"]
 
             cables.append({
                 "id": mock_cable["id"],
