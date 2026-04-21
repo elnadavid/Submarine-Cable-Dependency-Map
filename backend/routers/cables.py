@@ -10,6 +10,7 @@ DATA_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "mock_cables.j
 
 TELEGEOGRAPHY_CABLES_URL = "https://www.submarinecablemap.com/api/v3/cable/all.json"
 TELEGEOGRAPHY_POINTS_URL = "https://www.submarinecablemap.com/api/v3/landing-point/all.json"
+TELEGEOGRAPHY_GEO_URL = "https://www.submarinecablemap.com/api/v3/cable/cable-geo.json"
 
 # Our 5 featured cables — matched to TeleGeography IDs
 FEATURED_CABLE_IDS = [
@@ -23,7 +24,7 @@ FEATURED_CABLE_IDS = [
 def load_mock_data():
     with open(DATA_PATH, "r") as f:
         return json.load(f)
-
+    
 def fetch_telegeography_data():
     """
     Fetches real cable data from TeleGeography's public API.
@@ -38,19 +39,86 @@ def fetch_telegeography_data():
         pass
     return None
 
+
+def fetch_telegeography_geo():
+    """Fetches real cable GeoJSON with actual coordinates from TeleGeography."""
+    try:
+        with httpx.Client(timeout=10.0) as client:
+            response = client.get(TELEGEOGRAPHY_GEO_URL)
+            if response.status_code == 200:
+                return response.json()
+    except Exception:
+        pass
+    return None
+
 def build_cables_from_telegeography(tg_data):
     """
-    Instead of filtering to 5 cables,
-    just return ALL mock cables (expanded dataset)
+    Uses real TeleGeography GeoJSON data directly.
+    Filters to our featured cables and extracts real coordinates.
     """
     mock = load_mock_data()
-    cables = []
+    mock_by_id = {c["id"]: c for c in mock["cables"]}
 
+    # Fetch real GeoJSON coordinates
+    geo_data = fetch_telegeography_geo()
+    geo_by_id = {}
+    if geo_data and "features" in geo_data:
+        for feature in geo_data["features"]:
+            props = feature.get("properties", {})
+            cable_id = props.get("id", "")
+            geometry = feature.get("geometry", {})
+            coords = geometry.get("coordinates", [])
+            # MultiLineString — take first line segment
+            if coords and isinstance(coords[0], list):
+                geo_by_id[cable_id] = coords[0]
+
+    cables = []
+    for item in tg_data:
+        cable_id = item.get("id", "")
+        matched_id = None
+        if "sea-me-we-5" in cable_id:
+            matched_id = "sea-me-we-5"
+        elif "aae-1" in cable_id:
+            matched_id = "aae-1"
+        elif "africa-coast-to-europe" in cable_id:
+            matched_id = "africa-coast-to-europe"
+        elif "trans-pacific-express" in cable_id:
+            matched_id = "trans-pacific-express"
+        elif "dunant" in cable_id:
+            matched_id = "dunant"
+        elif "safe" == cable_id:
+            matched_id = "safe"
+        elif "eassy" in cable_id:
+            matched_id = "eassy"
+        elif "imewe" in cable_id:
+            matched_id = "imewe"
+        elif "apg" == cable_id or "asia-pacific-gateway" in cable_id:
+            matched_id = "apg"
+        elif "jupiter" == cable_id:
+            matched_id = "jupiter"
+
+        if matched_id and matched_id in mock_by_id:
+            mock_cable = mock_by_id[matched_id]
+            # Use real coordinates if available, fall back to mock
+            real_coords = geo_by_id.get(cable_id, geo_by_id.get(matched_id, None))
+            coordinates = real_coords if real_coords else mock_cable["coordinates"]
+
+            cables.append({
+                "id": mock_cable["id"],
+                "name": item.get("name", mock_cable["name"]),
+                "length_km": mock_cable["length_km"],
+                "owners": mock_cable["owners"],
+                "ready_for_service": mock_cable["ready_for_service"],
+                "landing_points": mock_cable["landing_points"],
+                "coordinates": coordinates,
+                "source": "TeleGeography"
+            })
+
+    # Fill in any missing cables from mock
+    matched_ids = {c["id"] for c in cables}
     for cable in mock["cables"]:
-        cables.append({
-            **cable,
-            "source": "mock_expanded"
-        })
+        if cable["id"] not in matched_ids:
+            cables.append({**cable, "source": "mock_fallback"})
 
     return cables
 
