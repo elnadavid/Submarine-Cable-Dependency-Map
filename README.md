@@ -7,7 +7,7 @@ A fullstack intelligence dashboard that visualizes the global submarine cable ne
 ---
 
 ## 📸 Preview
-
+![Preview](./preview.png)
 ---
 
 ##  Purpose
